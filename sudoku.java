@@ -154,7 +154,25 @@ public class sudoku
 
 		System.out.println();
 	}
-	
+
+	@Override
+	public String toString() {
+	    StringBuilder str = new StringBuilder();
+	    for (int row=0; row<9; row++){
+		if (row%3==0){
+		    str.append("----------------------\n");
+		}
+		for (int col=0; col<9; col++){
+		    if (col%3=0){
+			str.append('|');
+		    }
+		    str.append(' ' + Integer.toString(board[row][col]));
+		}
+		str.append("|\n");
+	    }
+	    str.append("----------------------");
+	    return str.toString();
+	}
 	public static void main(String[] args)
 	{
 		sudoku sudoku = new sudoku(test);
