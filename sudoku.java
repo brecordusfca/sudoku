@@ -98,7 +98,7 @@ public class sudoku
 	}
 	
 	//recursive backtracking solve method that seaches for empty cells and tests until it finds the correct one
-    public boolean solve()
+    public boolean fillBoard()
     {
        	for (int row = 0; row < SIZE; row++)
        	{
@@ -116,7 +116,7 @@ public class sudoku
                			board[row][col] = num;
 
                			//then begin recursive backtracking solve
-           				if (solve())
+           				if (fillBoard())
                			{
                				//the number has been added to the cell
                				return true;
@@ -140,52 +140,43 @@ public class sudoku
 	}
 	
 	//prints out the sudoku puzzle board
-	public void display()
+	public void printBoard()
 	{
-		for (int r = 0; r < SIZE; r++)
+		StringBuilder str = new StringBuilder();
+		for (int row=0; row<9; row++)
 		{
-			for (int c = 0; c < SIZE; c++)
+			if (row%3==0)
 			{
-				System.out.print(" " + board[r][c]);
+				str.append("----------------------\n");
 			}
-		
-			System.out.println();
+			for (int col=0; col<9; col++)
+			{
+				if (col%3==0)
+				{
+					str.append('|');
+				}
+					str.append(' ' + Integer.toString(board[row][col]));
+			}
+			str.append("|\n");
 		}
-
-		System.out.println();
+		str.append("----------------------");
+		System.out.println(str);
 	}
 
-	@Override
-	public String toString() {
-	    StringBuilder str = new StringBuilder();
-	    for (int row=0; row<9; row++){
-		if (row%3==0){
-		    str.append("----------------------\n");
-		}
-		for (int col=0; col<9; col++){
-		    if (col%3=0){
-			str.append('|');
-		    }
-		    str.append(' ' + Integer.toString(board[row][col]));
-		}
-		str.append("|\n");
-	    }
-	    str.append("----------------------");
-	    return str.toString();
-	}
+
 	public static void main(String[] args)
 	{
 		sudoku sudoku = new sudoku(test);
 
 		System.out.println("\nHere is the Sudoku puzzle to solve\n");
 
-		sudoku.display();
+		sudoku.printBoard();
 		
-		if (sudoku.solve())
+		if (sudoku.fillBoard())
 		{
 			System.out.println("Sudoku puzzle has been solved\n");
 
-			sudoku.display();
+			sudoku.printBoard();
 
 		}
 		else
