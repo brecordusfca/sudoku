@@ -98,6 +98,8 @@ All in all, the algorithm has a time complexity of O(n^2).
 
 ### Space Complexity
 
+The only variables instantiated are constant in size, the board, row, col, and num. This gives us O(85) which comes out to constant memory O(1).
+
 
 ## Contributers
 Brad Record & Dunham McBride
