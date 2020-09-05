@@ -4,41 +4,35 @@ Sudoku is a java class that uses back-tracking to solve a standard Sudoku game.
 
 ## Usage
 
-To use the class, first declare and initialize a 9 x 9 array
+To use the class, first create an instance of a sudoku game then execute sudoku.enterBoard(). Optionally, you can use sudoku.printBoard() to display the 9 x 9 grid before and after filling. 
+
+To fill the board, run sudoku.fillBoard().
 
 ```java
-public static int[][] test= 
+public static void main(String[] args)
 	{
-	  {5, 3, 0, 0, 7, 0, 0, 0, 0},
-	  {6, 0, 0, 1, 9, 5, 0, 0, 0},
-	  {0, 9, 8, 0, 0, 0, 0, 6, 0},
-	  {8, 0, 0, 0, 6, 0, 0, 0, 3},
-	  {4, 0, 0, 8, 0, 3, 0, 0, 1},
-	  {7, 0, 0, 0, 2, 0, 0, 0, 6},
-	  {0, 6, 0, 0, 0, 0, 2, 8, 0},
-	  {0, 0, 0, 4, 1, 9, 0, 0, 5},
-	  {0, 0, 0, 0, 8, 0, 0, 7, 9} 
-	};
-```
-Then create an instance of a sudoku game and pass the array.
-```java
-sudoku sudoku = new sudoku(test);
+		System.out.println("\nThis is the Sudoku Puzzle Program\n");
 
-System.out.println("\nHere is the Sudoku puzzle to solve\n");
+		sudoku sudoku = new sudoku();
 
-sudoku.display();
+		sudoku.enterBoard();
+
+		System.out.println("\nHere is the Sudoku puzzle to solve\n");
+
+		sudoku.printBoard();
 		
-if (sudoku.solve())
-{
-	System.out.println("Sudoku puzzle has been solved\n");
+		if (sudoku.fillBoard())
+		{
+			System.out.println("Sudoku puzzle has been solved\n");
 
-	sudoku.display();
+			sudoku.printBoard();
 
-}
-else
-{
-	System.out.println("The Sudoku puzzle is unsolvable");
-}
+		}
+		else
+		{
+			System.out.println("The Sudoku puzzle is unsolvable");
+		}
+	}
 ```
 
 ## Time and Space Complexity
