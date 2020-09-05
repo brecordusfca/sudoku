@@ -1,32 +1,47 @@
 import java.util.Scanner;
 
 public class sudoku
-{
-	//sets the test Sudoko puzzle
-	public static int[][] test= 
-	{
-	  {5, 3, 0, 0, 7, 0, 0, 0, 0},
-	  {6, 0, 0, 1, 9, 5, 0, 0, 0},
-	  {0, 9, 8, 0, 0, 0, 0, 6, 0},
-	  {8, 0, 0, 0, 6, 0, 0, 0, 3},
-	  {4, 0, 0, 8, 0, 3, 0, 0, 1},
-	  {7, 0, 0, 0, 2, 0, 0, 0, 6},
-	  {0, 6, 0, 0, 0, 0, 2, 8, 0},
-	  {0, 0, 0, 4, 1, 9, 0, 0, 5},
-	  {0, 0, 0, 0, 8, 0, 0, 7, 9} 
-	};
-	
-	//initializes the board array
+{	
+	//initializes the empty board array
 	private int[][] board;
 	
 	//initializes empty cell to zero
 	public static final int EMPTY = 0; 
 	
 	//initializes max number size of the Sudoku grid
-	public static final int SIZE = 9; 
+	public static final int SIZE = 9;
+
+	//allows user to set the all of initial board cells
+	public void enterBoard()
+	{
+		System.out.println("Enter rows in table: ");
+    	Scanner input = new Scanner(System.in); 
+    
+		int x = input.nextInt();
+	
+		System.out.println("Enter col in table: ");
+    
+		int y = input.nextInt();
+	
+		int array[][]= new int[x][y];
+    
+   		System.out.println("Enter array: ");
+   
+   		for (int r = 0; r < SIZE; r++)
+		{
+			for (int c = 0; c < SIZE; c++)
+			{
+	   			array[r][c]=input.nextInt();
+	   			break;
+   			}
+
+   			System.out.println("The test puzzle board has been added.");
+   			return;
+   			}
+	}
 	
 	//sets the all of initial board cells to zero
-	public sudoku(int[][] board)
+	public sudoku()
 	{
 		this.board = new int[SIZE][SIZE];
 		
@@ -107,36 +122,37 @@ public class sudoku
         		//searchs an empty cell
         		if (board[row][col] == EMPTY)
           		{
-            	//now tries all possible numbers
-            	for (int num = 1; num <= SIZE; num++)
-            	{
-            		//if the number ok and follows the rules
-            		if (check(row, col, num))
+            			//now tries all possible numbers
+            			for (int num = 1; num <= SIZE; num++)
             		{
-               			board[row][col] = num;
+            			//if the number ok and follows the rules
+            			if (check(row, col, num))
+            			{
+               				board[row][col] = num;
 
-               			//then begin recursive backtracking solve
+               				//then begin recursive backtracking solve
            				if (fillBoard())
-               			{
-               				//the number has been added to the cell
-               				return true;
-               			}
-               			else
-               			{ 
-              				//otherwise if its not a solution, then we empty the cell and continue
-               				board[row][col] = EMPTY;
-               			}
+               				{
+               					//the number has been added to the cell
+               					return true;
+               				}
+				
+               				else
+               				{ 
+              					//otherwise if its not a solution, then we empty the cell and continue
+               					board[row][col] = EMPTY;
+               				}
            			}
            		}
 
-				//could not solve
+			//could not solve
            		return false; 
-           	}
-        }
-    }
+        		}
+		}
+	}
 
 	//puzzle is solved
-    return true; 
+	return true; 
 	}
 	
 	//prints out the sudoku puzzle board
@@ -166,7 +182,11 @@ public class sudoku
 
 	public static void main(String[] args)
 	{
-		sudoku sudoku = new sudoku(test);
+		System.out.println("\nThis is the Sudoku Puzzle Program\n");
+
+		sudoku sudoku = new sudoku();
+
+		sudoku.enterBoard();
 
 		System.out.println("\nHere is the Sudoku puzzle to solve\n");
 
