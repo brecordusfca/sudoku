@@ -23,7 +23,7 @@ public class sudoku
     
 		int y = input.nextInt();
 	
-		int array[][]= new int[x][y];
+		board= new int[x][y];
     
    		System.out.println("Enter array: ");
    
@@ -31,13 +31,13 @@ public class sudoku
 		{
 			for (int c = 0; c < SIZE; c++)
 			{
-	   			array[r][c]=input.nextInt();
-	   			break;
+	   			board[r][c]=input.nextInt();   			
    			}
 
    			System.out.println("The test puzzle board has been added.");
    			return;
    			}
+   		return;
 	}
 	
 	//sets the all of initial board cells to zero
@@ -115,63 +115,62 @@ public class sudoku
 	//recursive backtracking solve method that seaches for empty cells and tests until it finds the correct one
     public boolean fillBoard()
     {
-       	for (int row = 0; row < SIZE; row++)
+       	for (int r = 0; r < SIZE; r++)
        	{
-       		for (int col = 0; col < SIZE; col++)
+       		for (int c = 0; c < SIZE; c++)
         	{
         		//searchs an empty cell
-        		if (board[row][col] == EMPTY)
+        		if (board[r][c] == EMPTY)
           		{
-            			//now tries all possible numbers
-            			for (int num = 1; num <= SIZE; num++)
+            	//now tries all possible numbers
+            	for (int num = 1; num <= SIZE; num++)
+            	{
+            		//if the number ok and follows the rules
+            		if (check(r, c, num))
             		{
-            			//if the number ok and follows the rules
-            			if (check(row, col, num))
-            			{
-               				board[row][col] = num;
+               			board[r][c] = num;
 
-               				//then begin recursive backtracking solve
+               			//then begin recursive backtracking solve
            				if (fillBoard())
-               				{
-               					//the number has been added to the cell
-               					return true;
-               				}
-				
-               				else
-               				{ 
-              					//otherwise if its not a solution, then we empty the cell and continue
-               					board[row][col] = EMPTY;
-               				}
+               			{
+               				//the number has been added to the cell
+               				return true;
+               			}
+               			else
+               			{ 
+              				//otherwise if its not a solution, then we empty the cell and continue
+               				board[r][c] = EMPTY;
+               			}
            			}
            		}
 
-			//could not solve
+				//could not solve
            		return false; 
-        		}
-		}
-	}
+           	}
+        }
+    }
 
 	//puzzle is solved
-	return true; 
+    return true; 
 	}
 	
 	//prints out the sudoku puzzle board
 	public void printBoard()
 	{
 		StringBuilder str = new StringBuilder();
-		for (int row=0; row<9; row++)
+		for (int r=0; r<9; r++)
 		{
-			if (row%3==0)
+			if (r%3==0)
 			{
 				str.append("----------------------\n");
 			}
-			for (int col=0; col<9; col++)
+			for (int c=0; c<9; c++)
 			{
-				if (col%3==0)
+				if (c%3==0)
 				{
 					str.append('|');
 				}
-					str.append(' ' + Integer.toString(board[row][col]));
+					str.append(' ' + Integer.toString(board[r][c]));
 			}
 			str.append("|\n");
 		}
@@ -187,11 +186,11 @@ public class sudoku
 		sudoku sudoku = new sudoku();
 
 		sudoku.enterBoard();
-
+		
 		System.out.println("\nHere is the Sudoku puzzle to solve\n");
 
 		sudoku.printBoard();
-		
+
 		if (sudoku.fillBoard())
 		{
 			System.out.println("Sudoku puzzle has been solved\n");
