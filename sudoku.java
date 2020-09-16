@@ -4,6 +4,8 @@ public class sudoku
 {	
 	//initializes the empty board array
 	private int[][] board;
+
+	public boolean ok = true;
 	
 	//initializes empty cell to zero
 	public static final int EMPTY = 0; 
@@ -14,16 +16,18 @@ public class sudoku
 	//allows user to set the all of initial board cells
 	public void enterBoard()
 	{
-		System.out.println("Enter rows in table: ");
-    	Scanner input = new Scanner(System.in); 
+		board = new int[9][9];
+		Scanner input  = new Scanner(System.in);
+
+		int num = 0;
+
+		System.out.println("Enter the number of rows in table: ");
     
 		int x = input.nextInt();
-	
-		System.out.println("Enter col in table: ");
+
+		System.out.println("Enter the number of columns in table: ");
     
 		int y = input.nextInt();
-	
-		board= new int[x][y];
     
    		System.out.println("Enter array: ");
    
@@ -31,13 +35,19 @@ public class sudoku
 		{
 			for (int c = 0; c < SIZE; c++)
 			{
-	   			board[r][c]=input.nextInt();   			
-   			}
+	   			num=input.nextInt();
 
-   			System.out.println("The test puzzle board has been added.");
-   			return;
+	   			if (check(r, c, num)) {
+	   				ok = true;
+	   				board[r][c] = num;
+	   			}
+	   			else {
+	   				ok = false;
+	   			} 			
    			}
-   		return;
+   		}
+  
+   		System.out.println("The test puzzle board has been added.");
 	}
 	
 	//sets the all of initial board cells to zero
